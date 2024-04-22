@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 #if UNITY_EDITOR
@@ -24,12 +25,13 @@ public class RadialTrigger : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-            //bool isInside =
-            Vector2 origin = transform.position;
-            Handles.color = isInside ? Color.red : Color.green;
-            Handles.DrawWireDisc(origin, new Vector3(0, 0, 1), radius);
-            
-            
+        Vector2 enemyPosition = enemyTF.position;
+        Vector2 origin = transform.position;
+        float distance = Vector2.Distance(origin, enemyPosition);
+        bool isInside = distance <= radius;
+    
+        Handles.color = isInside ? Color.red : Color.green;
+        Handles.DrawWireDisc(origin, new Vector3(0, 0, 1), radius);         
     }
 #endif
 }
